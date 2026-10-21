@@ -9,8 +9,6 @@ dele na pilha. A variável _topo aponta para o nó de cima.
 
 Empilhar e voltar mexem apenas no topo, por isso as duas operações são O(1).
 """
-
-
 class NoHistorico:
 
     def __init__(self, url, proximo=None):

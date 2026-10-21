@@ -5,15 +5,11 @@ LETRAS_E_NUMEROS = "abcdefghijklmnopqrstuvwxyz0123456789"
 
 
 def normalizar(url):
-    """Tira espaços das pontas e deixa tudo em minúsculas.
 
-    Toda url deve passar por aqui antes de ser comparada ou guardada.
-    """
     return url.strip().lower()
 
 
 def _so_tem_caracteres(texto, permitidos):
-    """True se todos os caracteres de texto estão em permitidos."""
     for letra in texto:
         if letra not in permitidos:
             return False
@@ -21,10 +17,6 @@ def _so_tem_caracteres(texto, permitidos):
 
 
 def _rotulo_valido(rotulo):
-    """Valida um pedaço do domínio (o que fica entre os pontos).
-
-    Pode ter letras, números e hífen, mas não pode começar nem terminar com hífen.
-    """
     if rotulo == "":
         return False
     if not _so_tem_caracteres(rotulo, LETRAS_E_NUMEROS + "-"):
@@ -33,7 +25,6 @@ def _rotulo_valido(rotulo):
 
 
 def _segmento_valido(segmento):
-    """Valida um pedaço do caminho (o que fica entre as barras): letras, números, _ e -."""
     if segmento == "":
         return False
     return _so_tem_caracteres(segmento, LETRAS_E_NUMEROS + "_-")

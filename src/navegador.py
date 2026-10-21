@@ -1,15 +1,8 @@
-"""Interface de linha de comando do navegador simulado.
 
-Regra de navegação (conforme a especificação do professor):
-- Ao visitar uma url válida, a página atual (home) vai para o histórico
-  e a nova url passa a ser o home.
-- #back tira a última página do histórico e a torna o home.
-"""
 from src.cadastro import adicionar_url
 from src.historico import Historico
 from src.urls import carregar_urls, normalizar, validar_formato
 
-# Caminho relativo: execute o programa a partir da pasta do projeto.
 CAMINHO_URLS = "dados/urls.txt"
 
 COMANDOS_DISPONIVEIS = "#back, #sair, #showhist, #add <url>"
@@ -40,9 +33,9 @@ class Navegador:
     def obter_historico(self):
         return self._historico.como_lista()
 
-    # ---- operações de navegação ----
+
     def visitar(self, url):
-        """Tenta visitar uma url. Devolve True se a navegação aconteceu."""
+   
         url = normalizar(url)
 
         if not validar_formato(url):
@@ -59,8 +52,7 @@ class Navegador:
             print("Você já está nesta página.")
             return False
 
-        # Todas as validações vêm ANTES de alterar o estado, assim uma
-        # entrada inválida nunca estraga o histórico.
+  
         if self._home is not None:
             self._historico.empilhar(self._home)
         self._home = url
@@ -77,21 +69,21 @@ class Navegador:
         return True
 
     def mostrar_historico(self):
-        """Comando #showhist: mostra o home e depois as páginas, da mais recente à mais antiga."""
+        
         if self._home is None:
             print("Nenhuma página visitada ainda.")
             return
         print("Situação atual do histórico:")
         print(f"  Home (atual): {self._home}")
         urls = self._historico.como_lista()
-        urls.reverse()    # a mais recente primeiro (a que o #back devolveria)
+        urls.reverse()   
         posicao = 1
         for url in urls:
             print(f"  {posicao}. {url}")
             posicao += 1
 
     def cadastrar(self, url):
-        """Comando #add."""
+        
         try:
             cadastrada = adicionar_url(self._banco, url, self._caminho_urls)
         except ValueError as erro:
@@ -102,7 +94,7 @@ class Navegador:
             print(f"URL cadastrada com sucesso: {cadastrada}")
 
     def executar(self, entrada):
-        """Processa uma linha digitada. Devolve False quando o programa deve encerrar."""
+        
         entrada = entrada.strip()
 
         if entrada == "":
@@ -121,7 +113,7 @@ class Navegador:
         return True
 
     def _executar_comando(self, entrada):
-        partes = entrada.split(maxsplit=1)    # "#add www.a.com" -> ["#add", "www.a.com"]
+        partes = entrada.split(maxsplit=1)    
         comando = partes[0].lower()
         argumento = ""
         if len(partes) > 1:

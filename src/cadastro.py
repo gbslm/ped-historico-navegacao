@@ -3,7 +3,6 @@ from src.urls import normalizar, validar_formato
 
 
 def _precisa_quebra_de_linha(caminho):
-    """True se o arquivo existe, tem conteúdo e não termina com quebra de linha."""
     try:
         with open(caminho, "r", encoding="utf-8") as arquivo:
             conteudo = arquivo.read()
@@ -13,14 +12,6 @@ def _precisa_quebra_de_linha(caminho):
 
 
 def adicionar_url(banco, url, caminho_arquivo):
-    """Cadastra uma url no banco (memória) e no arquivo (disco).
-
-    Devolve a url normalizada que foi cadastrada.
-    Levanta ValueError, com mensagem para o usuário, se a url estiver vazia,
-    com formato inválido ou já cadastrada.
-    Levanta OSError se não conseguir gravar no arquivo; nesse caso o banco
-    em memória não é alterado.
-    """
     url = normalizar(url)
 
     if url == "":
