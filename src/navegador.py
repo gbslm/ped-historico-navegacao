@@ -29,17 +29,15 @@ class Navegador:
     """Guarda o estado da navegação (home, histórico e urls cadastradas)."""
 
     def __init__(self, banco, caminho_urls):
-        self._banco = banco                  # set com as urls cadastradas
+        self._banco = banco                  
         self._caminho_urls = caminho_urls
         self._historico = Historico()
-        self._home = None                    # None = ainda não visitou nada
+        self._home = None         
 
-    # ---- consultas (o estado interno é protegido: _home e _historico) ----
     def obter_home(self):
         return self._home
 
     def obter_historico(self):
-        """Lista com o histórico, da página mais antiga para a mais recente."""
         return self._historico.como_lista()
 
     # ---- operações de navegação ----
@@ -70,7 +68,6 @@ class Navegador:
         return True
 
     def voltar(self):
-        """Comando #back. Devolve True se conseguiu voltar."""
         anterior = self._historico.voltar()
         if anterior is None:
             print("Não há página anterior no histórico.")
@@ -104,7 +101,6 @@ class Navegador:
         else:
             print(f"URL cadastrada com sucesso: {cadastrada}")
 
-    # ---- interpretação do que o usuário digitou ----
     def executar(self, entrada):
         """Processa uma linha digitada. Devolve False quando o programa deve encerrar."""
         entrada = entrada.strip()
@@ -145,7 +141,6 @@ class Navegador:
             print(f"Comandos disponíveis: {COMANDOS_DISPONIVEIS}")
         return True
 
-    # ---- laço principal ----
     def _mostrar_cabecalho(self):
         if self._home is None:
             home = "[ ]"

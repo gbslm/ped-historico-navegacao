@@ -40,13 +40,8 @@ def _segmento_valido(segmento):
 
 
 def validar_formato(url):
-    """True se a url tem formato válido (não garante que esteja cadastrada).
-
-    Formato: [http:// ou https://] dominio.com [/segmento [/segmento ...]]
-    """
     url = normalizar(url)
 
-    # Remove o protocolo, se existir.
     if url.startswith("https://"):
         url = url[len("https://"):]
     elif url.startswith("http://"):
@@ -58,7 +53,7 @@ def validar_formato(url):
     segmentos = partes[1:]
 
     rotulos = dominio.split(".")
-    if len(rotulos) < 2:          # precisa de pelo menos um ponto
+    if len(rotulos) < 2:      
         return False
     for rotulo in rotulos:
         if not _rotulo_valido(rotulo):

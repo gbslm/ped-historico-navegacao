@@ -12,7 +12,6 @@ Empilhar e voltar mexem apenas no topo, por isso as duas operações são O(1).
 
 
 class NoHistorico:
-    """Um elemento da pilha: guarda uma url e aponta para o próximo nó."""
 
     def __init__(self, url, proximo=None):
         self.url = url
@@ -20,22 +19,17 @@ class NoHistorico:
 
 
 class Historico:
-    """Pilha de URLs visitadas anteriormente (não inclui o home atual)."""
 
     def __init__(self):
         self._topo = None      # pilha vazia: ninguém no topo
         self._tamanho = 0
 
     def empilhar(self, url):
-        """Coloca uma url no topo da pilha."""
-        # O novo nó passa a apontar para o antigo topo...
         novo = NoHistorico(url, self._topo)
-        # ...e o topo passa a ser o novo nó.
         self._topo = novo
         self._tamanho += 1
 
     def voltar(self):
-        """Remove a url do topo e a devolve. Devolve None se a pilha estiver vazia."""
         if self._topo is None:
             return None
         url = self._topo.url
@@ -44,19 +38,16 @@ class Historico:
         return url
 
     def esta_vazio(self):
-        """True se não há nenhuma url na pilha."""
         return self._topo is None
 
     def tamanho(self):
-        """Quantidade de urls na pilha."""
         return self._tamanho
 
     def como_lista(self):
-        """Devolve uma lista com as urls, da mais antiga para a mais recente."""
         urls = []
         atual = self._topo
-        while atual is not None:       # percorre do topo até o fundo
+        while atual is not None:      
             urls.append(atual.url)
             atual = atual.proximo
-        urls.reverse()                 # o topo é a mais recente, então inverte
+        urls.reverse()               
         return urls
