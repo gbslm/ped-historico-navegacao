@@ -1,10 +1,6 @@
-import os
-import sys
 import unittest
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from arvore import ArvoreWeb, LimiteLinksError
+from src.arvore import ArvoreWeb, LimiteLinksError
 
 
 class TestArvore(unittest.TestCase):
@@ -42,6 +38,22 @@ class TestArvore(unittest.TestCase):
             a.inserir("site.com/c/d")
         self.assertIsNone(a.buscar("site.com/c"))   # nada foi criado
         self.assertEqual(a.quantidade(), 3)
+
+    def test_in_e_len(self):
+        a = ArvoreWeb()
+        a.inserir("site.com/x")
+        self.assertIn("site.com/x", a)
+        self.assertNotIn("site.com/y", a)
+        self.assertEqual(len(a), 2)
+
+    def test_todas_urls(self):
+        a = ArvoreWeb()
+        a.inserir("site.com/x/y")
+        a.inserir("site.com/z")
+        a.inserir("outro.com")
+        self.assertEqual(a.todas_urls(),
+                         ["site.com", "site.com/x", "site.com/x/y",
+                          "site.com/z", "outro.com"])
 
 
 if __name__ == "__main__":
