@@ -1,74 +1,27 @@
 # Histórico de Navegação em Websites
 
-Projeto desenvolvido para a disciplina de **Programação e Estrutura de Dados**, do curso de Redes de Computadores do IFPB.
-
-O objetivo é simular um navegador web por meio de uma aplicação em Python, permitindo acessar URLs previamente cadastradas, registrar o histórico de navegação e retornar à página anteriormente visitada.
-
-## Objetivos do Checkpoint 1
-
-- Criar uma interface de interação com o navegador.
-- Carregar URLs válidas a partir de um arquivo de texto.
-- Validar o formato e verificar o cadastro das URLs.
-- Permitir o cadastro de novas URLs.
-- Implementar uma estrutura de dados para armazenar o histórico de navegação em memória.
-
-## Estrutura do Projeto
-
-```text
-ped-historico-navegacao/
-├── main.py
-├── src/
-│   ├── navegador.py
-│   ├── historico.py
-│   ├── urls.py
-│   └── cadastro.py
-├── dados/
-│   └── urls.txt
-├── tests/
-├── README.md
-└── .gitignore
-```
-
-## Tecnologias
-
-- Python 3
-- Git e GitHub
+Projeto da disciplina Programação e Estrutura de Dados (IFPB, 2026.2) — Equipe Amebas.
+Simulador de navegador em Python (sem HTTP real): mantém histórico de páginas, navega
+por URLs cadastradas e por páginas internas.
 
 ## Como executar
+    python main.py
+    python -m unittest discover -s tests -v
 
-1. Instale o Python 3.
-2. Clone este repositório.
-3. Entre na pasta do projeto.
-4. Execute o programa pelo terminal:
-
-```bash
-python main.py
-```
-
-Caso seu sistema utilize o comando `python3`, execute:
-
-```bash
-python3 main.py
-```
+## Estrutura
+| Arquivo | Responsabilidade |
+|---|---|
+| `main.py` | Interface de texto, comandos `#` e navegação |
+| `historico.py` | Histórico de visitas (PILHA) |
+| `arvore.py` | URLs e páginas internas (ÁRVORE, máx. 2 links por página) |
+| `catalogo.py` | Carrega/cadastra URLs (`data/urls.txt`) e liga árvore + arquivos |
+| `conteudo.py` | Leitura/criação dos `.txt` de cada página (`data/paginas/`) |
+| `tests/` | Testes com `unittest` |
 
 ## Comandos
+`<url>`, `/<pasta>`, `#back`, `#showhist`, `#add <url>`, `#help`, `#sair`
 
-| Comando | Descrição |
-|---|---|
-| `#add <url>` | Solicita o cadastro de uma nova URL. |
-| `#back` | Retorna à última página visitada, quando disponível. |
-| `#showhist` | Exibe o histórico atual de navegação. |
-| `#sair` | Encerra a execução do programa. |
-
-## Equipe
-
-- Gabriel Salomão
-- Arthur Dantas
-- João Henrique Quaresma
-- Pedro Henrique da Silva
-
-## Disciplina
-
-Programação e Estrutura de Dados — IFPB
-
-Professor: Wallennon Germano
+## Estruturas de dados
+- **Histórico:** pilha (LIFO) — `#back` desfaz a última visita; push/pop O(1).
+- **URLs:** árvore com dicionários por nível — buscar uma URL é O(profundidade).
+- **Arquivo da página:** `www.ifpb.edu.br/tsi` → `data/paginas/www.ifpb.edu.br_tsi.txt`.
